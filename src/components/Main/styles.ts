@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Wrapper = styled.main`
-  background: -webkit-linear-gradient(#06092b, #cccccc);
+  background: #1b41aa;
   color: #fff;
   width: 100%;
   height: 100%;

@@ -11,5 +11,9 @@ module.exports = withPWA({
   pwa: {
     dest: 'public',
     disable: !isProd
+  },
+  use: {
+    test: /\.svg$/,
+    use: ['@svgr/webpack']
   }
 })
