@@ -1,4 +1,3 @@
-import { DataGrid } from '@mui/x-data-grid'
 import Main from 'components/Main'
 import { useEffect, useCallback, useState, useMemo } from 'react'
 import { IDocument } from '../../entities/document'
@@ -10,10 +9,23 @@ export default function Home() {
     () =>
       documents.length > 1
         ? Object.keys(documents[0]).map((value) => {
+            console.log('VALUE:', value)
             return {
               field: value,
               headerName: value,
-              width: 180
+              width:
+                value.includes('Issuer') || value.includes('Dealer')
+                  ? 36
+                  : value.includes('Transaction')
+                  ? 170
+                  : 80,
+              editable: true,
+              renderCell: (params: any) =>
+                !params.value.includes('img/') ? (
+                  <span style={{ color: 'white' }}>{params.value}</span>
+                ) : (
+                  <img src={params.value} alt={params.value} />
+                )
             }
           })
         : [],
@@ -34,6 +46,11 @@ export default function Home() {
   }, [])
 
   return (
-    <DataGrid columns={columns} rows={documents} getRowId={({ Id }) => Id} />
+    <Main
+      dataGrid={{
+        columns,
+        documents
+      }}
+    />
   )
 }
